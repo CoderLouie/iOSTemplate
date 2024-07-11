@@ -250,7 +250,7 @@ extension HUD {
                 HUD.Tips.show(tip, pos) {
                     self.dismiss()
                 }
-            case let .stopAndAlert(title):
+            case .stopAndAlert:
                 guard status != .dismissing else { return }
                 status = .dismissing
                 dismiss()

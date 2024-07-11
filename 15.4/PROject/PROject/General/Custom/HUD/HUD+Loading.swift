@@ -119,7 +119,7 @@ extension HUD {
     enum Loading {
         enum Style {
             case lottie
-            case indicator(UIActivityIndicatorView.Style = .whiteLarge, blur: UIBlurEffect.Style = .light)
+            case indicator(UIActivityIndicatorView.Style = .large, blur: UIBlurEffect.Style = .light)
             case builtln
         }
         private static weak var previousLoadingView: LoadingViewAction?

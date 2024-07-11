@@ -20,13 +20,13 @@ def commonPods
 
 end
 
-target 'PROject' do
+target 'PROject_dev' do
   commonPods
 end
 
-#target 'SwiftApp_dis' do
-  #commonPods
-#end
+target 'PROject_dis' do
+  commonPods
+end
 
 post_install do |installer|
   installer.generated_projects.each do |project|
