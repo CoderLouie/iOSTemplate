@@ -93,6 +93,7 @@ enum Finder {
             let profilePath = toPath + toInfo.2
             guard mgr.fileExists(atPath: profilePath) else { return }
             try replace(of: fromInfo.0, with: toInfo.0, at: profilePath)
+//            Process.runPodInstall(at: toPath)
         }
     }
 }

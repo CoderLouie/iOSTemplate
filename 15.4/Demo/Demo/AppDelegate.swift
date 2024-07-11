@@ -22,7 +22,9 @@ extension AppDelegate: UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = ViewController()
+        let vc = ViewController()
+        let nav = NavigationController(rootViewController: vc)
+        window.rootViewController = nav
         window.makeKeyAndVisible()
         self.window = window 
         
