@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Demo
 //
-//  Created by liyang on 2024/7/11.
+//  Created by liyang on TODAYS_DATE.
 //
 
 import UIKit
@@ -20,7 +20,6 @@ fileprivate enum TestCase: String, CaseIterable {
             print("click")
         }
     }
-    
 }
 
 class ViewController: UIViewController {

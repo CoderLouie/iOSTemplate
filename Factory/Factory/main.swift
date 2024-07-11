@@ -7,5 +7,8 @@
 
 import Foundation
 
-print("Hello, World!")
+
+let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/Demo/"
+let toPath = "/Users/liyang/Desktop/Program/2024/07/DemoTag/"
+Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 
