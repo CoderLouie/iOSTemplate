@@ -8,8 +8,8 @@
 import Foundation
 
 
-let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/PROject/"
-let toPath = "/Users/liyang/Desktop/Program/2024/07/ProDemo2/"
+let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/PodLib/"
+let toPath = "/Users/liyang/Desktop/Program/2024/07/MyLib/"
 Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 //Process.runPodInstall(at: toPath)
 

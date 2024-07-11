@@ -2,7 +2,7 @@
 //  OC_Call_Swift.h
 //  PROject
 //
-//  Created by liyang on TODAYS_DATE.
+//  Created by ${USER_NAME} on TODAYS_DATE.
 //
 
 #ifndef OC_Call_Swift_h
