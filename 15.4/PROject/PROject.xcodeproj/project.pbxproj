@@ -93,6 +93,8 @@
 		B6A3CD762C3F8F5900DD1637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A3CD092C3F884600DD1637 /* Assets.xcassets */; };
 		B6A3CD772C3F8F5900DD1637 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6A3CD432C3F8A4800DD1637 /* InfoPlist.strings */; };
 		B6A3CD782C3F8F5900DD1637 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A3CD0A2C3F884600DD1637 /* LaunchScreen.storyboard */; };
+		B6A3CD8C2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B6A3CD8B2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy */; };
+		B6A3CD8D2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B6A3CD8B2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,6 +150,7 @@
 		B6A3CD492C3F8A5400DD1637 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6A3CD7C2C3F8F5900DD1637 /* PROject_dis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PROject_dis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6A3CD7E2C3F8FCF00DD1637 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6A3CD8B2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +392,7 @@
 		B6A3CD0B2C3F884600DD1637 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B6A3CD8B2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy */,
 				B6A3CD092C3F884600DD1637 /* Assets.xcassets */,
 				B6A3CD0A2C3F884600DD1637 /* LaunchScreen.storyboard */,
 				B6A3CD432C3F8A4800DD1637 /* InfoPlist.strings */,
@@ -505,6 +509,7 @@
 				B6A3CD482C3F8A5000DD1637 /* Localizable.strings in Resources */,
 				B6A3CD382C3F884600DD1637 /* Assets.xcassets in Resources */,
 				B6A3CD442C3F8A4800DD1637 /* InfoPlist.strings in Resources */,
+				B6A3CD8C2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy in Resources */,
 				B6A3CD392C3F884600DD1637 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +521,7 @@
 				B6A3CD752C3F8F5900DD1637 /* Localizable.strings in Resources */,
 				B6A3CD762C3F8F5900DD1637 /* Assets.xcassets in Resources */,
 				B6A3CD772C3F8F5900DD1637 /* InfoPlist.strings in Resources */,
+				B6A3CD8D2C3FF88E00DD1637 /* PrivacyInfo.xcprivacy in Resources */,
 				B6A3CD782C3F8F5900DD1637 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
