@@ -58,7 +58,8 @@ enum Finder {
             try enumerateContents(of: codeFold) {
                 $0.hasSuffix(".swift") ||
                 $0.hasSuffix(".strings") ||
-                $0.hasSuffix(".h")
+                $0.hasSuffix(".h") ||
+                $0.hasSuffix(".m")
             } progress: { path, level, mgr, stop in
                 try replace(of: """
 //  \(fromInfo.0)
@@ -93,7 +94,7 @@ enum Finder {
             guard mgr.fileExists(atPath: profilePath) else { return }
             try replace(of: fromInfo.0, with: toInfo.0, at: profilePath)
         }
-    } 
+    }
 }
 
 extension Finder {
