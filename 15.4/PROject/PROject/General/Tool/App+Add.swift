@@ -46,11 +46,7 @@ extension App {
      
     /// 用于Release环境输出日志(true), 正式包需设置为false
     static var logEnable: Bool {
-        #if DEVELOPMENT
         return true
-        #else
-        return true
-        #endif
     }
     /// 是否是我们平常开发写代码的调试模式
     static var isCoding: Bool {

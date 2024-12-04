@@ -97,6 +97,8 @@ extension HUD {
             let bInset = bottomContainerEdgeInset
             bottomContainer = .vertical.then {
                 $0.alignment = .fill
+                $0.distribution = .fillEqually
+                $0.spacing = 6
                 contentView.addSubview($0)
                 $0.snp.makeConstraints { make in
                     make.top.equalTo(topContainer.snp.bottom).offset(bInset.top)

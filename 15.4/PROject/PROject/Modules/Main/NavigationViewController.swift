@@ -28,13 +28,13 @@ class NavigationController: UINavigationController {
         guard viewControllers.count > 0 else { return }
         vc.hidesBottomBarWhenPushed = true
         
-        let backBtn = UIButton(type: .custom)
-        backBtn.setImage(UIImage(named: "navigationbar_back_withtext"), for: .normal)
-        backBtn.setImage(UIImage(named: "navigationbar_back_withtext_highlighted"), for: .highlighted)
-        backBtn.setTitle(viewControllers.last?.title, for: .normal)
-        backBtn.sizeToFit()
-        backBtn.addTarget(vc, action: #selector(backBarButtonItemClicked), for: .touchUpInside)
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+//        let backBtn = UIButton(type: .custom)
+//        backBtn.setImage(UIImage(named: "navigationbar_back_withtext"), for: .normal)
+//        backBtn.setImage(UIImage(named: "navigationbar_back_withtext_highlighted"), for: .highlighted)
+//        backBtn.setTitle(viewControllers.last?.title, for: .normal)
+//        backBtn.sizeToFit()
+//        backBtn.addTarget(vc, action: #selector(backBarButtonItemClicked), for: .touchUpInside)
+//        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
 
 }

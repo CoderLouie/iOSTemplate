@@ -88,14 +88,20 @@ public enum Permission {
             completion(.notSupport, false)
             return
         }
-        let status = PHPhotoLibrary.authorizationStatus()
+        
+        let status: PHAuthorizationStatus
+        if #available(iOS 14, *) {
+            status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        } else {
+            status = PHPhotoLibrary.authorizationStatus()
+        }
         switch status {
         case .restricted:
             completion(.restricted, false)
         case .denied:
             completion(.denied, false)
         case .notDetermined:
-            PHPhotoLibrary.requestAuthorization { newStatus in
+            let closure = { (newStatus: PHAuthorizationStatus) in
                 var tmpStatus: AuthorizationStatus = .authorized
                 if newStatus == .restricted {
                     tmpStatus = .restricted
@@ -104,8 +110,18 @@ public enum Permission {
                 }
                 completion(tmpStatus, true)
             }
+            
+            if #available(iOS 14, *) {
+                PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: closure)
+            } else {
+                PHPhotoLibrary.requestAuthorization(closure)
+            }
         default:
-            completion(.authorized, false)
+            if status.rawValue == 4 {
+                completion(.restricted, false)
+            } else {
+                completion(.authorized, false)
+            }
         }
     }
     

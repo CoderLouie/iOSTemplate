@@ -31,6 +31,12 @@ extension HUD {
             }
         }
         
+        var presentAnimationInterval: TimeInterval {
+            0.25
+        }
+        var dismissAnimationoInterval: TimeInterval {
+            0.25
+        }
         override func doAnimation(_ show: Bool,
                                   completion: @escaping () -> Void) {
             if show { layoutIfNeeded() }
@@ -42,9 +48,9 @@ extension HUD {
                     make.top.equalTo(self.snp.bottom)
                 }
             }
-//            self.setNeedsUpdateConstraints()
-//            self.updateConstraintsIfNeeded()
-            UIView.animate(withDuration: 0.25) {
+            
+            let interval = show ? presentAnimationInterval : dismissAnimationoInterval
+            UIView.animate(withDuration: interval) {
                 self.layoutIfNeeded()
                 self.backgroundColor = show ? UIColor(gray: 0, alpha: 0.4) : .clear
             } completion: { _ in

@@ -65,11 +65,10 @@ public class WaterflowLayout: UICollectionViewLayout {
                 layoutAttrs.append(attr)
             }
         }
-        
+        contentHeight += edgeInset.bottom
         if let size = footerReferenceSize,
            size.height > 0 {
             let attr = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, with: IndexPath(item: 0, section: 0))
-            contentHeight += edgeInset.bottom
             attr.frame = CGRect(x: 0, y: contentHeight, width: collectionWidth, height: size.height)
             layoutAttrs.append(attr)
             contentHeight += size.height

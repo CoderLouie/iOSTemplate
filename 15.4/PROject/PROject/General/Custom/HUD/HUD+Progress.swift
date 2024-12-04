@@ -8,6 +8,327 @@
 import UIKit
 
 // MARK: - Progress
+
+protocol ProgressActionControl: AnyObject {
+    func performPrepare(_ tips: String)
+    
+    func performSystemProgress()
+    func performCustomProgress(_ progress: Int)
+     
+    func performFinish(_ completion: @escaping () -> Void)
+    
+    func performStop()
+}
+extension ProgressActionControl {
+    func performAfter(_ interval: TimeInterval, execute: @escaping (ProgressActionControl) -> Void) {
+        DispatchQueue.main.after(interval) { [weak self] in
+            guard let this = self else { return }
+            execute(this)
+        }
+    }
+    func performTimeout(_ interval: TimeInterval) {
+        performAfter(interval) { $0.performStop() }
+    }
+    func performTimeout(_ interval: TimeInterval, onTimeout: @escaping () -> Void) {
+        performAfter(interval) { $0.performStop(); onTimeout() }
+    }
+     
+    func performFinish() {
+        performFinish() {}
+    }
+}
+
+
+extension HUD {
+    final class ProgressView: HUD.BaseView, ProgressActionControl {
+         
+        func performPrepare(_ tips: String) {
+            titleLabel.text = tips
+        }
+        
+        func performSystemProgress() {
+            guard status != .dismissing else { return }
+            // 如果已经开始过进度，则重置进度
+            if progress > 0 {
+                progress = 0; index = 0
+            }
+            createTimer(interval: 0.1,
+                        selector: #selector(progeressFast))
+        }
+        func performCustomProgress(_ progress: Int) {
+            guard status != .dismissing else { return }
+            // 确保不受定时器影响
+            removeTimer()
+            if progress < 100 { self.progress = progress }
+        }
+        
+        func performFinish(_ completion: @escaping () -> Void) {
+            guard status != .dismissing else { return }
+            status = .dismissing
+            /// 消除定时器的影响
+            removeTimer()
+            progress = 100
+            DispatchQueue.main.after(1) {
+                self.dismiss()
+                completion()
+            }
+        }
+        
+        func performStop() {
+            guard status != .dismissing else { return }
+            status = .dismissing
+            dismiss()
+        }
+        
+        private enum Status {
+            case prepare
+            case progress
+            case dismissing
+        }
+         
+        internal override func setup() {
+            super.setup()
+            backgroundColor = UIColor(gray: 255, alpha: 0.3)
+            UIVisualEffectView(effect: UIBlurEffect(style: .dark)).do {
+                $0.alpha = 0.99
+                addSubview($0)
+                $0.snp.makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+            }
+            let content = UIView().then { box in
+                addSubview(box)
+                box.snp.makeConstraints { make in
+                    make.center.equalToSuperview()
+                    make.leading.trailing.equalToSuperview()
+                }
+            }
+            
+            progressView = CircleProgress().then {
+                content.addSubview($0)
+                $0.snp.makeConstraints { make in
+                    make.top.centerX.equalToSuperview()
+                }
+            }
+            titleLabel = UILabel().then {
+                $0.textColor = .white
+                $0.font = .system18
+                $0.text = " "
+                $0.textAlignment = .center
+                $0.numberOfLines = 0
+                content.addSubview($0)
+                $0.snp.makeConstraints { make in
+                    make.top.equalTo(progressView.snp.bottom).offset(30.fitH)
+                    make.bottom.equalTo(0)
+                    make.centerX.equalToSuperview()
+                    make.leading.greaterThanOrEqualTo(h30)
+                    make.trailing.lessThanOrEqualTo(-h30)
+                }
+            }
+        }
+        func show(_ tips: String?, on view: UIView)  {
+            if let text = tips, !text.isEmpty {
+                titleLabel.text = text
+            }
+            frame = view.bounds
+            view.addSubview(self)
+        }
+        deinit {
+            NSLog("ProgressView deinit")
+        }
+        
+        private func dismiss() {
+            removeTimer()
+            removeFromSuperview()
+        }
+        private func removeTimer() {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
+        private func createTimer(interval: TimeInterval, selector: Selector) {
+            removeTimer()
+            let timer = Timer(timeInterval: interval, target: self, selector: selector, userInfo: nil, repeats: true)
+            RunLoop.current.add(timer, forMode: .common)
+            self.timer = timer
+        }
+        @objc private func progeressFast() {
+            if index < steps.count {
+                progress = steps[index]
+                index += 1
+            } else {
+                createTimer(interval: 1, selector: #selector(progeressSlow))
+            }
+        }
+        @objc private func progeressSlow() {
+            if progress < 99 { progress += 1 }
+        }
+        private var status: Status = .prepare
+        private var index: Int = 0
+        private unowned var progressView: CircleProgress!
+        private(set) unowned var titleLabel: UILabel!
+        private var timer: Timer?
+        
+        private var progress: Int = 0 {
+            didSet {
+                progressView.progress = progress
+            }
+        }
+        private lazy var steps: [Int] = {
+            var steps: [Int] = []
+            for i in 0..<20 {
+                if i == 19 { steps.append(95) }
+                else { steps.append(i * 5 + (Int(arc4random())%5)) }
+            }
+            return steps
+        }()
+    }
+    
+    enum Progress {
+        /*
+         如果允许window上同时存在两个ProgressView时需要使用弱引用表解决，
+         WeakTable
+         */
+        private(set) static weak var control: ProgressActionControl?
+        @discardableResult
+        static func show(_ tips: String? = nil) -> ProgressActionControl? {
+            guard let window = HUD.window else { return nil }
+            if control != nil {
+                if App.logEnable {
+                    NSLog("严重警告！！！！ 已有一个ProgressView，还试图再创建一个，请检查代码")
+                }
+            }
+            let view = ProgressView()
+            view.show(tips, on: window)
+            control = view
+            return view
+        }
+    }
+}
+
+var HUDProgressControl: ProgressActionControl? {
+    HUD.Progress.control
+}
+
+fileprivate final class LineProgress: HUD.BaseView {
+    override func setup() {
+        super.setup()
+        layer.cornerRadius = 3.fit
+        clipsToBounds = true
+        backgroundColor = UIColor(gray: 255, alpha: 0.3)
+        
+        progressView = UIView().then {
+            $0.layer.cornerRadius = 3.fit
+            $0.clipsToBounds = true
+            $0.backgroundColor = .white
+            
+            addSubview($0)
+            $0.snp.makeConstraints { make in
+                make.leading.top.bottom.equalToSuperview()
+                make.width.equalTo(0)
+            }
+        }
+    }
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(width: size.width, height: 6.fit)
+    }
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        intrinsicContentSize
+    }
+    var progress: Int = 0 {
+        didSet {
+            progressView.snp.updateConstraints { make in
+                make.width.equalTo(bounds.size.width * (CGFloat(progress) / 100.0))
+            }
+        }
+    }
+    private unowned var progressView: UIView!
+}
+
+fileprivate final class CircleProgress: HUD.BaseView {
+    private let wh: CGFloat = 86.fit
+    private let progressWidth = 7.fit
+    private var radius: CGFloat {
+        (wh - progressWidth) * 0.5
+    }
+    private var trackWidth: CGFloat {
+        progressWidth
+    }
+    override func setup() {
+        super.setup()
+        
+        let bounds = CGRect(x: 0, y: 0, width: wh, height: wh)
+        let path = UIBezierPath.init(arcCenter: CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5), radius: radius, startAngle: -.pi*0.5, endAngle: .pi*1.5, clockwise: true)
+        /// 轨道
+        CAShapeLayer().do {
+            $0.frame = bounds
+            $0.path = path.cgPath
+            $0.fillColor = UIColor.clear.cgColor
+            $0.strokeColor = UIColor.gray.cgColor
+            $0.lineWidth = trackWidth
+            $0.lineCap = .round
+            
+            layer.addSublayer($0)
+        }
+        progressLayer = CAShapeLayer().then {
+            $0.frame = bounds
+            $0.path = path.cgPath
+            $0.fillColor = UIColor.clear.cgColor
+            $0.strokeColor = UIColor.red.cgColor
+            $0.lineWidth = progressWidth
+//                $0.lineCap = .round
+            $0.strokeEnd = 0
+        }
+         
+        let midColor = UIColor(hexString: "#9AEE98")!
+        CALayer().do {
+            // 右边
+            $0.addSublayer(CAGradientLayer().then {
+                $0.frame = CGRect(x: wh * 0.5, y: 0, width: wh * 0.5, height: wh)
+                $0.colors = [UIColor.Main.gradients[0], midColor].map { $0.cgColor }
+                $0.startPoint = CGPoint(x: 0, y: 0)
+                $0.endPoint = CGPoint(x: 0, y: 1)
+            })
+            // 左边
+            $0.addSublayer(CAGradientLayer().then {
+                $0.frame = CGRect(x: 0, y: 0, width: wh * 0.5, height: wh)
+                $0.colors = [midColor, UIColor.Main.gradients[1]].map { $0.cgColor }
+                $0.startPoint = CGPoint(x: 1, y: 1)
+                $0.endPoint = CGPoint(x: 1, y: 0)
+            })
+            $0.frame = bounds
+            $0.mask = progressLayer
+            layer.addSublayer($0)
+        }
+        
+        titleLabel = UILabel().then {
+            $0.textColor = .white
+            $0.textAlignment = .center
+            $0.font = UIFont.systemFont(ofSize: 20).fit
+            addSubview($0)
+            $0.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        }
+    }
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: wh, height: wh)
+    }
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        intrinsicContentSize
+    }
+    var progress: Int = 0 {
+        didSet {
+            let newValue = CGFloat(progress) / 100.0
+            progressLayer.strokeEnd = newValue
+            titleLabel.text = "\(progress)%"
+        }
+    }
+    private unowned var progressLayer: CAShapeLayer!
+    private var titleLabel: UILabel!
+}
+
+/*
 extension HUD {
     fileprivate final class LineProgress: HUD.BaseView {
         override func setup() {
@@ -204,14 +525,13 @@ extension HUD {
             NSLog("ProgressView deinit")
         }
         private func doAction(_ result: Action) {
-            if case let .timeout(interval: interval, tips: tips, position: pos) = result {
+            switch result {
+            case let .timeout(interval: interval, tips: tips, position: pos):
                 DispatchQueue.main.after(interval) {[weak self] in
                     guard self?.status != .dismissing else { return }
                     self?.doAction(.stop(error: tips, position: pos))
                 }
                 return
-            }
-            switch result {
             case let .prepare(tips: tips):
                 titleLabel.text = tips
             case let .progress(type: type):
@@ -254,8 +574,7 @@ extension HUD {
                 guard status != .dismissing else { return }
                 status = .dismissing
                 dismiss()
-//                HUD.Alert.show(title)
-            default: break
+//                HUD.Alert.show(title) 
             }
         }
         private func dismiss() {
@@ -329,3 +648,4 @@ extension HUD {
         }
     }
 }
+*/
