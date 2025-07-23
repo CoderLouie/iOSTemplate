@@ -15,7 +15,7 @@ class VideoLoopView: UIView {
     var selectedItemDidChange: ((Int) -> Void)?
     
     func forward() {
-        playerView.forward()
+        playerView.forward(animated: true)
     }
     
     var isScrollEnabled: Bool {
@@ -66,7 +66,7 @@ extension VideoLoopView: CarouselViewDelegate {
         if autoPlayNext {
             player.listener = { [unowned self] event in
                 if case .finished = event, !self.playerView.isTracking {
-                    self.playerView.forward()
+                    self.playerView.forward(animated: true)
                 }
             }
         }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-fileprivate class TestCaseCell: BaseTableCell, Reusable {
+fileprivate class TestCaseCell: BaseTableCell {
 }
 
 fileprivate enum TestCase: String, CaseIterable {

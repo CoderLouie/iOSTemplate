@@ -281,18 +281,21 @@ fileprivate final class CircleProgress: HUD.BaseView {
         }
          
         let midColor = UIColor(hexString: "#9AEE98")!
+        let gradients = [UIColor(red: 0.17, green: 0.94, blue: 1, alpha: 1.00),
+             UIColor(red: 1, green: 0.92, blue: 0.22, alpha: 1.00)]
+        
         CALayer().do {
             // 右边
             $0.addSublayer(CAGradientLayer().then {
                 $0.frame = CGRect(x: wh * 0.5, y: 0, width: wh * 0.5, height: wh)
-                $0.colors = [UIColor.Main.gradients[0], midColor].map { $0.cgColor }
+                $0.colors = [gradients[0], midColor].map { $0.cgColor }
                 $0.startPoint = CGPoint(x: 0, y: 0)
                 $0.endPoint = CGPoint(x: 0, y: 1)
             })
             // 左边
             $0.addSublayer(CAGradientLayer().then {
                 $0.frame = CGRect(x: 0, y: 0, width: wh * 0.5, height: wh)
-                $0.colors = [midColor, UIColor.Main.gradients[1]].map { $0.cgColor }
+                $0.colors = [midColor, gradients[1]].map { $0.cgColor }
                 $0.startPoint = CGPoint(x: 1, y: 1)
                 $0.endPoint = CGPoint(x: 1, y: 0)
             })

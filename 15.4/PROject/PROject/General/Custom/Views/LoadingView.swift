@@ -12,7 +12,7 @@ class LoadingView: BaseView {
     private unowned var imgView: UIImageView!
     override func setup() {
         imgView = UIImageView().then {
-            $0.image = UIImage(fileNamed: "ic_launch_loading")
+            $0.image = .fileNamed("ic_launch_loading")
             $0.isUserInteractionEnabled = true
             
             addSubview($0)
