@@ -62,7 +62,7 @@ enum Finder {
         let isClonePods = fromInfo.0.hasPrefix("PodLib")
 
         for name in try mgr.contentsOfDirectory(atPath: fromPath) {
-            if name.hasPrefix(".") { continue }
+//            if name.hasPrefix(".") { continue }
             let srcPath = fromPath + name
             guard mgr.fileExists(atPath: srcPath) else { continue }
             try mgr.copyItem(atPath: srcPath, toPath: toPath + name)
@@ -87,8 +87,10 @@ enum Finder {
                 $0.hasSuffix(".h") ||
                 $0.hasSuffix(".m")
             } progress: { path, level, mgr, stop in
-                try replace(use: ["//  \(fromInfo.0)": "//  \(toInfo.0)",
-                                  "Created by ${USER_NAME} on TODAYS_DATE": "Created by \(userName) on \(todayDate)"], at: path)
+                try replace(use: [
+                    "//  \(fromInfo.0)": "//  \(toInfo.0)",
+                    "Created by ${USER_NAME} on TODAYS_DATE": "Created by \(userName) on \(todayDate)",
+                    #"CFBundleDisplayName" = "\#(fromInfo.0)"#: #"CFBundleDisplayName" = "\#(toInfo.0)"#], at: path)
             }
             let bridgHeaderPath = codeFold + "/Other/\(fromInfo.0)-Bridging-Header.h"
             if mgr.fileExists(atPath: bridgHeaderPath) {
@@ -97,6 +99,13 @@ enum Finder {
             try renamefile(codeFold)
         }
         
+        do {
+            let ignorePath = toPath + ".gitignore"
+            if mgr.fileExists(atPath: ignorePath) {
+                try replace(use: [
+                    "\(fromInfo.0)/General/Libs/*.framework": "\(toInfo.0)/General/Libs/*.framework"], at: ignorePath)
+            }
+        }
         do {
             let projFold = toPath + fromInfo.1
             try enumerateContents(of: projFold) {
