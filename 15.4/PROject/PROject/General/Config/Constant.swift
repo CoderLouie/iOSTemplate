@@ -16,9 +16,13 @@ let h16 = 16.fit
 let h18 = 18.fit
 var h20: CGFloat { h10 * 2 }
 var h24: CGFloat { h12 * 2 }
+var h28: CGFloat { h14 * 2 }
 var h30: CGFloat { h10 * 3 }
 var h32: CGFloat { h16 * 2 }
-var h40: CGFloat { h20 * 3 }
+var h36: CGFloat { h18 * 2 }
+var h40: CGFloat { h10 * 4 }
+var h50: CGFloat { h10 * 5 }
+var h60: CGFloat { h10 * 6 }
 
 /// 垂直常用间距
 //let v10: CGFloat = 10
