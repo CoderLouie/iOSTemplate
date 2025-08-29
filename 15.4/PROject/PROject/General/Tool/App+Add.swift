@@ -60,6 +60,21 @@ extension App {
         return false
         #endif
     }
+    static var isSandbox: Bool {
+        Bundle.main.appStoreReceiptURL?.path.contains("sandboxReceipt") ?? false
+    }
+    
+    
+    static let devAppID = "6744311148"
+    static let disAppID = "6667106950"
+    
+    static var appID: String {
+#if DEVELOPMENT
+        return devAppID
+#else
+        return disAppID
+#endif
+    }
 }
 
 

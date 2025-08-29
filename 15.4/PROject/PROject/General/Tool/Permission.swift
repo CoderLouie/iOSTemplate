@@ -73,16 +73,16 @@ public enum Permission {
         default: return .authorized
         }
     }
-    public static func requestPhoto(completion: @escaping CompletionHandler) {
+    public static func requestPhoto(addOnly: Bool = true, completion: @escaping CompletionHandler) {
         assert(for: .photoUsage)
-        _requestPhoto { status, isFirst in
+        _requestPhoto(addOnly: addOnly) { status, isFirst in
             DispatchQueue.main.async {
                 completion(status, isFirst)
             }
         }
     }
 
-    private static func _requestPhoto(completion: @escaping CompletionHandler) {
+    private static func _requestPhoto(addOnly: Bool = true, completion: @escaping CompletionHandler) {
         assert(for: .photoUsage)
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             completion(.notSupport, false)
@@ -91,7 +91,7 @@ public enum Permission {
         
         let status: PHAuthorizationStatus
         if #available(iOS 14, *) {
-            status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+            status = PHPhotoLibrary.authorizationStatus(for: addOnly ? .addOnly : .readWrite)
         } else {
             status = PHPhotoLibrary.authorizationStatus()
         }
@@ -112,16 +112,12 @@ public enum Permission {
             }
             
             if #available(iOS 14, *) {
-                PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: closure)
+                PHPhotoLibrary.requestAuthorization(for: addOnly ? .addOnly : .readWrite, handler: closure)
             } else {
                 PHPhotoLibrary.requestAuthorization(closure)
             }
         default:
-            if status.rawValue == 4 {
-                completion(.restricted, false)
-            } else {
-                completion(.authorized, false)
-            }
+            completion(.authorized, false)
         }
     }
     

@@ -23,6 +23,9 @@ var h36: CGFloat { h18 * 2 }
 var h40: CGFloat { h10 * 4 }
 var h50: CGFloat { h10 * 5 }
 var h60: CGFloat { h10 * 6 }
+var h80: CGFloat { h80 * 6 }
+
+var h72: CGFloat { h18 * 4 }
 
 /// 垂直常用间距
 //let v10: CGFloat = 10

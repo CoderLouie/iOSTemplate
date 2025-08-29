@@ -26,8 +26,6 @@ extension AppDelegate: UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
         
-        print("isDevelopment", App.isDevelopment, App.environment)
-        
         return true
     }
 
