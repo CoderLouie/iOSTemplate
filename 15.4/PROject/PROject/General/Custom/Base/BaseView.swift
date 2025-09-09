@@ -62,9 +62,7 @@ class BaseTableCell: UITableViewCell, Reusable {
         setup()
     }
     
-    func setup() {
-        
-    }
+    func setup() {}
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -77,10 +75,31 @@ class BaseCollectionCell: UICollectionViewCell, Reusable {
         setup()
     }
     
-    func setup() {
-        
+    func setup() { }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+class BaseCollectReusableView: UICollectionReusableView, Reusable {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func setup() {}
+}
+class BaseTableReusabelView: UITableViewHeaderFooterView, Reusable {
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    func setup() {}
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
