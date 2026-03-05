@@ -1,0 +1,36 @@
+//
+//  ProfileView.swift
+//  AIPROject
+//
+//  Created by liyang on 2026/3/5.
+//
+
+import SwiftUI
+
+
+struct ProfileView: View {
+    @Environment(\.appRouter) private var router
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Profile")
+                .font(.title2.weight(.semibold))
+
+            Button("Present 模态页") {
+                router?.present(
+                    wrappedInNavigation: true,
+                    animated: true
+                ) {
+                    ModalView(source: "Profile")
+                }
+            }
+
+            Button("Push 详情页") {
+                router?.push(animated: true) {
+                    DetailView(source: "Profile")
+                }
+            }
+        }
+        .padding(24)
+    }
+}
