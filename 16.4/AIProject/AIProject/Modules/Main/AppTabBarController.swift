@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 enum AppTab: Int, CaseIterable {
     case home
@@ -34,7 +35,6 @@ enum AppTab: Int, CaseIterable {
 
 
 final class AppTabBarController: UITabBarController {
-    private var routers: [AppRouter] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,23 +42,14 @@ final class AppTabBarController: UITabBarController {
     }
 
     private func makeNavigationController(for tab: AppTab) -> UINavigationController {
-        let navigationController = AppNavigationController()
-        let router = AppRouter(
-            navigationController: navigationController,
-            tabBarController: self
-        )
-        routers.append(router)
+        let navigationController = AppNavigationController() 
 
         let rootController: UIViewController
         switch tab {
         case .home:
-            rootController = HostingPageController(router: router) {
-                HomeView()
-            }
+            rootController = UIHostingController(rootView: HomeView())
         case .profile:
-            rootController = HostingPageController(router: router) {
-                ProfileView()
-            }
+            rootController = UIHostingController(rootView: ProfileView()) 
         }
         rootController.tabBarItem = UITabBarItem(
             title: tab.title,

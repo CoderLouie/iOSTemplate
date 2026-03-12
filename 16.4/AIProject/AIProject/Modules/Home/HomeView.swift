@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-struct HomeView: View {
-    @Environment(\.appRouter) private var router
+struct HomeView: View { 
 
     var body: some View {
         VStack(spacing: 16) {
@@ -15,13 +14,13 @@ struct HomeView: View {
                 .font(.title2.weight(.semibold))
 
             Button("Push 到详情页") {
-                router?.push(animated: true) {
+                xPush(animated: true) {
                     DetailView(source: "Home")
                 }
             }
 
             Button("切换到 Profile Tab") {
-                router?.selectTab(at: AppTab.profile.rawValue)
+                xSelectTab(at: AppTab.profile.rawValue)
             }
         }
         .padding(24)

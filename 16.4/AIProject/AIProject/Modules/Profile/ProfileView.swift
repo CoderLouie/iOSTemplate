@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ProfileView: View {
-    @Environment(\.appRouter) private var router
+//    @Environment(\.appRouter) private var router
 
     var body: some View {
         VStack(spacing: 16) {
@@ -17,7 +17,7 @@ struct ProfileView: View {
                 .font(.title2.weight(.semibold))
 
             Button("Present 模态页") {
-                router?.present(
+                xPresent(
                     wrappedInNavigation: true,
                     animated: true
                 ) {
@@ -26,7 +26,7 @@ struct ProfileView: View {
             }
 
             Button("Push 详情页") {
-                router?.push(animated: true) {
+                xPush(animated: true) {
                     DetailView(source: "Profile")
                 }
             }
