@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DetailView: View {
-//    @Environment(\.appRouter) private var router
     let source: String
 
     var body: some View {
@@ -19,7 +18,6 @@ struct DetailView: View {
                 .foregroundStyle(.secondary)
 
             Button("返回上一页") {
-//                router?.pop(animated: true)
                 xPop(animated: true)
             }
         }
@@ -28,7 +26,6 @@ struct DetailView: View {
 }
 
 struct ModalView: View {
-//    @Environment(\.appRouter) private var router
     let source: String
 
     var body: some View {
@@ -38,8 +35,7 @@ struct ModalView: View {
             Text("presented by \(source)")
                 .foregroundStyle(.secondary)
 
-            Button("关闭模态页") {
-//                router?.dismiss(animated: true)
+            Button("关闭模态页") { 
                 xDismiss(animated: true)
             }
         }

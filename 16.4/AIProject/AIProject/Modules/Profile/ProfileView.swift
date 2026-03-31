@@ -8,8 +8,7 @@
 import SwiftUI
 
 
-struct ProfileView: View {
-//    @Environment(\.appRouter) private var router
+struct ProfileView: View { 
 
     var body: some View {
         VStack(spacing: 16) {

@@ -1,6 +1,3 @@
-PROject/General/Libs/*.framework
-
-
 # System
 .DS_Store
 
@@ -42,8 +39,8 @@ playground.xcworkspace
 
 
 # Pods
-# Pods/
-# *.xcworkspace 
+Pods/
+
 
 # =========================
 # AI Tools

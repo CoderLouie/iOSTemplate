@@ -16,10 +16,23 @@ fileprivate extension Screen {
         frontViewController?.navigationController
     }
 }
+protocol ViewLifeCycle {
+    func viewDidAppear()
+}
+extension ViewLifeCycle {
+    func viewDidAppear() {}
+}
+final class HostingController<Content: View>: UIHostingController<Content> {
+    override func viewDidAppear(_ animated: Bool) {
+        if let c = rootView as? ViewLifeCycle {
+            c.viewDidAppear()
+        }
+    }
+}
 extension View {
     func xPush<Content: View>(animated: Bool = true, @ViewBuilder _ content: () -> Content) {
         guard let nav = Screen.frontNavController else { return }
-        let controller = UIHostingController(rootView: content())
+        let controller = HostingController(rootView: content())
         nav.pushViewController(controller, animated: animated)
     }
 
@@ -62,3 +75,5 @@ extension View {
         tabVC.selectedIndex = index
     }
 }
+
+ 
