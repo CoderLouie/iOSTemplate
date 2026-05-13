@@ -20,15 +20,13 @@ def commonPods
 
 end
 
-target 'AIPROject' do
+target 'AIPROject_dev' do
+  commonPods
+end 
+target 'AIPROject_dis' do
   commonPods
 end 
 
-target 'AIPROjectTests' do
-end 
-
-target 'AIPROjectUITests' do
-end 
 
 post_install do |installer|
   installer.generated_projects.each do |project|

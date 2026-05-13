@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AIPROject
 //
-//  Created by liyang on 2026/3/4.
+//  Created by ${USER_NAME} on TODAYS_DATE.
 //
 
 import UIKit
@@ -15,6 +15,13 @@ extension AppDelegate: UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        #if DEVELOPMENT
+        print("Development")
+        #else
+        print("Distributed")
+        #endif
+        
         return true
     }
 

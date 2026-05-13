@@ -2,7 +2,7 @@
 //  AppTabBarController.swift
 //  AIPROject
 //
-//  Created by liyang on 2026/3/5.
+//  Created by ${USER_NAME} on TODAYS_DATE.
 //
 
 import UIKit

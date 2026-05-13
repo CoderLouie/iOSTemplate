@@ -2,7 +2,7 @@
 //  Screen.swift
 //  AIPROject
 //
-//  Created by liyang on 2026/3/12.
+//  Created by ${USER_NAME} on TODAYS_DATE.
 //
 
 import UIKit
