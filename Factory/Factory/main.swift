@@ -10,7 +10,7 @@ import Foundation
 
 private func createPodLib() {
     let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/PodLib/"
-    let toPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Pods/WH/SwiftyStatistics/"
+    let toPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Pods/WH/IAP/"
     //let toPath = "/Users/liyang/Desktop/Program/2026/04/MomSHU/"
     Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 }
@@ -32,9 +32,9 @@ private func createDemo() {
 }
 
 //createDemo()
-//createPodLib()
+createPodLib()
 //createProject()
-createProject16_4()
+//createProject16_4()
 //Process.runPodInstall(at: toPath)
 
 
