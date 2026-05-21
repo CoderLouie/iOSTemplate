@@ -2,7 +2,7 @@
 //  RootTabView.swift
 //  SUIProject
 //
-//  Created by liyang on 2026/5/21.
+//  Created by ${USER_NAME} on TODAYS_DATE.
 //
 
 import SwiftUI

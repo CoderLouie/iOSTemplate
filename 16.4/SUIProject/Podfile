@@ -4,7 +4,7 @@
 # source 'https://github.com/CocoaPods/Specs.git'
 
 
-platform :ios, '15.0'
+platform :ios, '17.0'
 
 inhibit_all_warnings!
 
@@ -14,16 +14,16 @@ install! 'cocoapods', :preserve_pod_file_structure => true
 def commonPods 
   
   # pod 'YYKit', :git => 'https://github.com/CoderLouie/YYKit.git', :branch => 'swift'
-  pod 'SwifterKnife/Issued', :git => 'https://github.com/CoderLouie/SwifterKnife.git', :branch => 'develop', :tag => '0.4.1'
+  pod 'SwifterKnife/Issued', :git => 'https://github.com/CoderLouie/SwifterKnife.git', :branch => 'develop', :tag => '0.4.5'
   # pod 'SnapKit', :git => 'https://github.com/CoderLouie/SnapKit.git', :branch => 'my_source'
   # pod 'lottie-ios'
 
 end
 
-target 'AIPROject_dev' do
+target 'SUIProject_dev' do
   commonPods
 end 
-target 'AIPROject_dis' do
+target 'SUIProject_dis' do
   commonPods
 end 
 
@@ -32,7 +32,7 @@ post_install do |installer|
   installer.generated_projects.each do |project|
     project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '17.0'
       end
     end
   end

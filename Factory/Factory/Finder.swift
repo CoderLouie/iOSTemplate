@@ -88,14 +88,18 @@ enum Finder {
                 $0.hasSuffix(".m")
             } progress: { path, level, mgr, stop in
                 try replace(use: [
-                    "//  \(fromInfo.0)": "//  \(toInfo.0)",
+                    "\(fromInfo.0)": "\(toInfo.0)",
                     "Created by ${USER_NAME} on TODAYS_DATE": "Created by \(userName) on \(todayDate)",
                     #"CFBundleDisplayName" = "\#(fromInfo.0)"#: #"CFBundleDisplayName" = "\#(toInfo.0)"#], at: path)
             }
             let bridgHeaderPath = codeFold + "/Other/\(fromInfo.0)-Bridging-Header.h"
-            if mgr.fileExists(atPath: bridgHeaderPath) {
-                try renamefile(bridgHeaderPath)
+            let appFile = codeFold + "/" + fromInfo.0 + "App.swift"
+            for path in [bridgHeaderPath, appFile] {
+                if mgr.fileExists(atPath: path) {
+                    try renamefile(path)
+                }
             }
+            
             try renamefile(codeFold)
         }
         
