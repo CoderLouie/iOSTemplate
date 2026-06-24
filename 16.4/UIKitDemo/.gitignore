@@ -1,9 +1,8 @@
-SUIProject/General/Libs/*.framework
+PROject/General/Libs/*.framework
 
 
 # System
 .DS_Store
-*.DS_Store
 
 # Build 
 build/ 
@@ -42,9 +41,8 @@ timeline.xctimeline
 playground.xcworkspace
 
 
-# Pods
-# Pods/
-# *.xcworkspace 
+Pods/
+*.xcworkspace 
 
 # =========================
 # AI Tools

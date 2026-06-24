@@ -17,12 +17,23 @@ private func createPodLib() {
 
 private func createProject() {
     let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/PROject/"
-    let toPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Project/IssuedExample/"
+//    let toPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Project/IssuedExample/"
+    let toPath = "/Users/liyang/Desktop/Program/2026/06/NoFree/"
+    Finder.cloneProject(fromPath: fromPath, toPath: toPath)
+}
+private func createDemo() {
+    let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/Demo/"
+    let toPath = "/Users/liyang/Desktop/Program/2026/06/Keyboard/"
     Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 }
 private func createProject16_4() {
     let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/16.4/AIPROject/"
     let toPath = "/Users/liyang/Desktop/Program/2026/05/HelloExample/"
+    Finder.cloneProject(fromPath: fromPath, toPath: toPath)
+}
+private func createProject16_4UIKit() {
+    let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/16.4/UIKitProject/"
+    let toPath = "/Users/liyang/Desktop/Program/2026/06/NewProject/"
     Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 }
 private func createProject16_4_swiftUI() {
@@ -31,9 +42,9 @@ private func createProject16_4_swiftUI() {
     let toPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Project/TidyGuru/"
     Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 }
-private func createDemo() {
-    let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/15.4/Demo/"
-    let toPath = "/Users/liyang/Desktop/Program/2026/04/FlashImg/"
+private func create16_4Demo() {
+    let fromPath = "/Users/liyang/Desktop/Program/Unbing/SourceTree/Github/iOSTemplate/16.4/UIKitDemo/"
+    let toPath = "/Users/liyang/Desktop/Program/2026/06/UbKeyboard/"
     Finder.cloneProject(fromPath: fromPath, toPath: toPath)
 }
 
@@ -41,7 +52,9 @@ private func createDemo() {
 //createPodLib()
 //createProject()
 //createProject16_4()
-createProject16_4_swiftUI()
+//createProject16_4_swiftUI()
+//create16_4Demo()
+createProject16_4UIKit()
 //Process.runPodInstall(at: toPath)
 
 

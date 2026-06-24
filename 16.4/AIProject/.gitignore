@@ -1,39 +1,71 @@
-*~
+AIPROject/General/Libs/*.framework
+
+
+# System
 .DS_Store
-build/
-DerivedData/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata/
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3 
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
-*.hmap
+*.DS_Store
+
+# Build 
+build/ 
+Build/
+
+## App packaging
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.xcarchive
 
-AIPROject/General/Libs/*.framework
 
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcworkspace/xcuserdata/
+ 
+# Xcode workspace user data
+*.xccheckout
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+!*.mode1v3
+!*.mode2v3
+!*.perspectivev3
+
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+
+# Pods
 # Pods/
-# *.xcworkspace
+# *.xcworkspace 
 
-Carthage/Build
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
-iOSInjectionProject/
+# =========================
+# AI Tools
+# =========================
+# Keep team-shared rules/settings if needed:
+# .cursor/rules/
+# .cursorrules
+# Ignore local cache / session-like artifacts
+.cursor/cache/
+.cursor/index/
+.cursor/tmp/
+.cursor/sessions/
+.cursor/logs/
+.cursor/settings.local.json
+.claude/
+.codex/
+.vscode/
+.idea/
+
+
+#Tools
+reports/
+.superset/
+ 
